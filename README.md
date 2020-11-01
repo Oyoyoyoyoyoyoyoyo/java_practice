@@ -1,2 +1,2 @@
-# web_practice
-javaWeb实战练习
+# Java_practice
+Java实战练习
