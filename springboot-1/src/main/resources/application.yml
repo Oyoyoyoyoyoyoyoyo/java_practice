@@ -3,6 +3,9 @@ server:
 valuetest:
   name: ${random.value}
 
+
+
+#鐜閰嶇疆
 spring:
   profiles:
-    active: dev #dev开发环境，prod生产环境
+    active: dev #dev寮�鍙戠幆澧僷rod鐢熶骇鐜
