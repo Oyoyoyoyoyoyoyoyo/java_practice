@@ -6,41 +6,30 @@ import com.macro.mall.tiny.mbg.model.UmsPermission;
 import java.util.List;
 
 /**
- * Author:zhanggang
- * Date:2020/11/1
- * Decription:<后台管理员Service>
+ * 后台管理员Service
+ * Created by macro on 2018/4/26.
  */
 public interface UmsAdminService {
     /**
-     * 根据用户获取后台管理员
-     *
-     * @param username
-     * @return
+     * 根据用户名获取后台管理员
      */
     UmsAdmin getAdminByUsername(String username);
 
     /**
      * 注册功能
-     *
-     * @param umsAdminParam
-     * @return
      */
     UmsAdmin register(UmsAdmin umsAdminParam);
 
     /**
-     * 登陆功能
-     *
-     * @param username
-     * @param password
+     * 登录功能
+     * @param username 用户名
+     * @param password 密码
      * @return 生成的JWT的token
      */
     String login(String username, String password);
 
     /**
      * 获取用户所有权限（包括角色权限和+-权限）
-     *
-     * @param adminId
-     * @return
      */
     List<UmsPermission> getPermissionList(Long adminId);
 }

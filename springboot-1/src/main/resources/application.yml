@@ -1,0 +1,8 @@
+server:
+  port: 80
+valuetest:
+  name: ${random.value}
+
+spring:
+  profiles:
+    active: dev #dev开发环境，prod生产环境

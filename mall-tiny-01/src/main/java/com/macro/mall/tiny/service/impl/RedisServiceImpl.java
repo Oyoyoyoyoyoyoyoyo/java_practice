@@ -8,17 +8,17 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Author:zhanggang
- * Date:2020/11/1
- * Decription:<redis操作service的实现类>
+ * redis操作Service的实现类
+ * Created by macro on 2018/8/7.
  */
 @Service
 public class RedisServiceImpl implements RedisService {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+
     @Override
     public void set(String key, String value) {
-        stringRedisTemplate.opsForValue().set(key,value);
+        stringRedisTemplate.opsForValue().set(key, value);
     }
 
     @Override
@@ -38,6 +38,6 @@ public class RedisServiceImpl implements RedisService {
 
     @Override
     public Long increment(String key, long delta) {
-        return stringRedisTemplate.opsForValue().increment(key, delta);
+        return stringRedisTemplate.opsForValue().increment(key,delta);
     }
 }

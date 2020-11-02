@@ -33,7 +33,7 @@ public class UmsMemberController {
     @RequestMapping(value = "/verifyAuthCode", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult updatePassword(@RequestParam String telephone,
-                                       @RequestParam String authCode) {
-        return memberService.verifyAuthCode(telephone, authCode);
+                                 @RequestParam String authCode) {
+        return memberService.verifyAuthCode(telephone,authCode);
     }
 }

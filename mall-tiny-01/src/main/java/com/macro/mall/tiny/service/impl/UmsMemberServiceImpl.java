@@ -32,22 +32,18 @@ public class UmsMemberServiceImpl implements UmsMemberService {
         }
         //验证码绑定手机号并存储到redis
         redisService.set(REDIS_KEY_PREFIX_AUTH_CODE + telephone, sb.toString());
-        System.out.println("sb.toString() = " + sb.toString());
         redisService.expire(REDIS_KEY_PREFIX_AUTH_CODE + telephone, AUTH_CODE_EXPIRE_SECONDS);
         return CommonResult.success(sb.toString(), "获取验证码成功");
     }
 
 
-    /**
-     * 对输入的验证码进行校验
-     */
+    //对输入的验证码进行校验
     @Override
     public CommonResult verifyAuthCode(String telephone, String authCode) {
         if (StringUtils.isEmpty(authCode)) {
             return CommonResult.failed("请输入验证码");
         }
         String realAuthCode = redisService.get(REDIS_KEY_PREFIX_AUTH_CODE + telephone);
-        System.out.println("realAuthCode = " + realAuthCode);
         boolean result = authCode.equals(realAuthCode);
         if (result) {
             return CommonResult.success(null, "验证码校验成功");

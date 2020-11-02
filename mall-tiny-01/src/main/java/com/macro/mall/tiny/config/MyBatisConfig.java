@@ -4,11 +4,10 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Author:zhanggang
- * Date:2020/10/31
- * Decription:<MyBatis配置类>
+ * MyBatis配置类
+ * Created by macro on 2019/4/8.
  */
 @Configuration
-@MapperScan("com.macro.mall.tiny.mbg.mapper")
+@MapperScan({"com.macro.mall.tiny.mbg.mapper","com.macro.mall.tiny.dao"})
 public class MyBatisConfig {
 }

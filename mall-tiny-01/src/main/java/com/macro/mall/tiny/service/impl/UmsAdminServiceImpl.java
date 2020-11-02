@@ -2,6 +2,7 @@ package com.macro.mall.tiny.service.impl;
 
 import com.macro.mall.tiny.common.utils.JwtTokenUtil;
 import com.macro.mall.tiny.dao.UmsAdminRoleRelationDao;
+import com.macro.mall.tiny.dto.UmsAdminLoginParam;
 import com.macro.mall.tiny.mbg.mapper.UmsAdminMapper;
 import com.macro.mall.tiny.mbg.model.UmsAdmin;
 import com.macro.mall.tiny.mbg.model.UmsAdminExample;
@@ -12,19 +13,24 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
-import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
 /**
- * Author:zhanggang
- * Date:2020/11/1
- * Decription:<UmsAdminService实现类>
+ * UmsAdminService实现类
+ * Created by macro on 2018/4/26.
  */
+@Service
 public class UmsAdminServiceImpl implements UmsAdminService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UmsAdminServiceImpl.class);
     @Autowired
@@ -57,9 +63,9 @@ public class UmsAdminServiceImpl implements UmsAdminService {
         BeanUtils.copyProperties(umsAdminParam, umsAdmin);
         umsAdmin.setCreateTime(new Date());
         umsAdmin.setStatus(1);
-        // 查询是否有相同用户名的用户
+        //查询是否有相同用户名的用户
         UmsAdminExample example = new UmsAdminExample();
-        example.createCriteria().andEmailEqualTo(umsAdmin.getUsername());
+        example.createCriteria().andUsernameEqualTo(umsAdmin.getUsername());
         List<UmsAdmin> umsAdminList = adminMapper.selectByExample(example);
         if (umsAdminList.size() > 0) {
             return null;
@@ -73,11 +79,24 @@ public class UmsAdminServiceImpl implements UmsAdminService {
 
     @Override
     public String login(String username, String password) {
-        return null;
+        String token = null;
+        try {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            if (!passwordEncoder.matches(password, userDetails.getPassword())) {
+                throw new BadCredentialsException("密码不正确");
+            }
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            token = jwtTokenUtil.generateToken(userDetails);
+        } catch (AuthenticationException e) {
+            LOGGER.warn("登录异常:{}", e.getMessage());
+        }
+        return token;
     }
+
 
     @Override
     public List<UmsPermission> getPermissionList(Long adminId) {
-        return null;
+        return adminRoleRelationDao.getPermissionList(adminId);
     }
 }
