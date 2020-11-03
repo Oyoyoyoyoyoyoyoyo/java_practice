@@ -6,21 +6,8 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Collections;
-import java.util.HashMap;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Author:zhanggang
@@ -32,11 +19,11 @@ import java.util.Map;
 @Api(tags = "用户管理")
 @RestController
 @RequestMapping(value = "/users")
-public class UserController {
+public class UserController_bak {
 
     /**
      * 创建线程安全的Map，模拟users信息的存储
-     */
+     *//*
     static Map<Long, User> users = Collections.synchronizedMap(new HashMap<>());
 
     @GetMapping("/")
@@ -75,6 +62,6 @@ public class UserController {
     public String deleteUser(@PathVariable Long id) {
         users.remove(id);
         return "success";
-    }
+    }*/
 
 }

@@ -4,11 +4,7 @@ package com.oyogis.entity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.validation.constraints.*;
 
 
@@ -16,17 +12,17 @@ import javax.validation.constraints.*;
  * Author:zhanggang
  * Date:2020/11/2
  * Decription:<用户实体类>
+ * swagger实现API文档
+ * JSR-303实现请求参数校验
  */
-@ApiModel("用户实体")
+
 @Data
-@NoArgsConstructor
-@Entity
-public class User {
-    @Id
-    @GeneratedValue
-    @NotNull
-    @ApiModelProperty("用户id")
+@ApiModel("用户实体")
+public class User_bak {
+
+    @ApiModelProperty("用户编号")
     private Long id;
+
     @NotNull
     @Size(min = 2, max = 5)
     @ApiModelProperty("用户姓名")
@@ -38,8 +34,9 @@ public class User {
     @ApiModelProperty("用户年龄")
     private Integer age;
 
-    public User(String name, Integer age) {
-        this.name = name;
-        this.age = age;
-    }
+    @NotNull
+    @Email
+    @ApiModelProperty("用户邮箱")
+    private String email;
+
 }
