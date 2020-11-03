@@ -37,8 +37,7 @@ public class FileController {
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         LOGGER.info("上传的后缀名为：" + suffixName);
         // 文件上传后的路径
-        File outFile = new File("");
-        String outFilePath = outFile.getAbsolutePath();
+        String outFilePath = new File("").getAbsolutePath();
         outFilePath = outFilePath.replace("\\", "//");
         // 解决中文问题，linux下中文路径，图片显示问题
         // fileName = UUID.randomUUID() + suffixName;
@@ -56,15 +55,17 @@ public class FileController {
         return CommonResult.failed("上传失败");
     }
 
-    @ApiOperation(value = "文件下载")
+    @ApiOperation(value = "文件下载", notes = "文件下载后存入下载文件夹")
     @GetMapping("/download")
-    public String downloadFile(HttpServletRequest request, HttpServletResponse response) {
-        String fileName = "FileUploadTests.java";
+    public CommonResult downloadFile(HttpServletRequest request, HttpServletResponse response) {
+        //文件名称
+        String fileName = "test.txt";
         if (fileName != null) {
-            //当前是从该工程的WEB-INF//File//下获取文件(该目录可以在下面一行代码配置)然后下载到C:\\users\\downloads即本机的默认下载的目录
-            String realPath = request.getServletContext().getRealPath(
-                    "//WEB-INF//");
-            File file = new File(realPath, fileName);
+            // 下载文件路径
+            String filePath = new File("").getAbsolutePath();
+            filePath = filePath.replace("\\", "//") + "//static//";
+            System.out.println("realPath = " + filePath);
+            File file = new File(filePath, fileName);
             if (file.exists()) {
                 response.setContentType("application/force-download");
                 // 设置强制下载不打开
@@ -83,7 +84,8 @@ public class FileController {
                         os.write(buffer, 0, i);
                         i = bis.read(buffer);
                     }
-                    System.out.println("success");
+
+                    CommonResult.success("下载成功");
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
@@ -104,28 +106,26 @@ public class FileController {
                 }
             }
         }
-        return null;
+        return CommonResult.failed("下载失败");
     }
 
     @ApiOperation(value = "多文件上传")
-    @PostMapping("/mupload")
+    @PostMapping("/mUpload")
     public CommonResult handleFileUpload(HttpServletRequest request) {
-        List<MultipartFile> files = ((MultipartHttpServletRequest) request)
-                .getFiles("file");
+        List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
         MultipartFile file = null;
         BufferedOutputStream stream = null;
-        //https://www.cnblogs.com/shamo89/p/7640801.html
         // 文件上传后的路径
-        File outFile = new File("");
-        String outFilePath = outFile.getAbsolutePath();
+        String outFilePath = new File("").getAbsolutePath();
         outFilePath = outFilePath.replace("\\", "//");
         for (int i = 0; i < files.size(); ++i) {
             file = files.get(i);
             if (!file.isEmpty()) {
                 try {
+                    String fileName = new File(file.getOriginalFilename()).getName();
+                    String filePath = outFilePath + "//static//" + fileName;
                     byte[] bytes = file.getBytes();
-                    stream = new BufferedOutputStream(new FileOutputStream(
-                            new File(file.getOriginalFilename())));
+                    stream = new BufferedOutputStream(new FileOutputStream(filePath));
                     stream.write(bytes);
                     stream.close();
 

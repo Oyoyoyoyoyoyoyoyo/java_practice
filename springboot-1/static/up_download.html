@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Getting Started: Serving Web Content</title>
+    <title>文件上传下载测试</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<p>Get your greeting <a href="/greeting">here</a></p>
 <form action="http://localhost:8080/file/upload" method="POST" enctype="multipart/form-data">
     文件：<input type="file" name="test"/>
     <input type="submit" />
 </form>
 <a href="http://localhost:8080/file/download">下载test</a>
 <p>多文件上传</p>
-<form method="POST" enctype="multipart/form-data" action="http://localhost:8080/file/mupload">
+<form method="POST" enctype="multipart/form-data" action="http://localhost:8080/file/mUpload">
     <p>文件1：<input type="file" name="file" /></p>
     <p>文件2：<input type="file" name="file" /></p>
     <p><input type="submit" value="上传" /></p>
