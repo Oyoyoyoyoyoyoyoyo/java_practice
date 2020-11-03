@@ -3,6 +3,7 @@ package com.oyogis.controller;
 import com.oyogis.common.api.CommonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +18,13 @@ import java.util.List;
 /**
  * 文件上传下载控制类
  */
-@Api("文件上传下载")
+@Api(tags = "文件上传下载")
 @RestController
 @RequestMapping("/file")
 public class FileController {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileController.class);
 
-    @ApiModelProperty(value = "文件上传")
+    @ApiOperation(value = "文件上传")
     @PostMapping("/upload")
     public CommonResult upload(@RequestParam("test") MultipartFile file) {
         if (file.isEmpty()) {
@@ -36,10 +37,12 @@ public class FileController {
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         LOGGER.info("上传的后缀名为：" + suffixName);
         // 文件上传后的路径
-        String filePath = "E://test//";
-        // 解决中文问题，liunx下中文路径，图片显示问题
+        File outFile = new File("");
+        String outFilePath = outFile.getAbsolutePath();
+        outFilePath = outFilePath.replace("\\", "//");
+        // 解决中文问题，linux下中文路径，图片显示问题
         // fileName = UUID.randomUUID() + suffixName;
-        File dest = new File(filePath + fileName);
+        File dest = new File(outFilePath + "//static//" + fileName);
         // 检测是否存在目录
         if (!dest.getParentFile().exists()) {
             dest.getParentFile().mkdirs();
@@ -47,15 +50,13 @@ public class FileController {
         try {
             file.transferTo(dest);
             return CommonResult.success("上传成功");
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return CommonResult.failed("上传失败");
     }
 
-    @ApiModelProperty(value = "文件下载")
+    @ApiOperation(value = "文件下载")
     @GetMapping("/download")
     public String downloadFile(HttpServletRequest request, HttpServletResponse response) {
         String fileName = "FileUploadTests.java";
@@ -106,13 +107,18 @@ public class FileController {
         return null;
     }
 
-    @ApiModelProperty(value = "多文件上传")
+    @ApiOperation(value = "多文件上传")
     @PostMapping("/mupload")
-    public String handleFileUpload(HttpServletRequest request) {
+    public CommonResult handleFileUpload(HttpServletRequest request) {
         List<MultipartFile> files = ((MultipartHttpServletRequest) request)
                 .getFiles("file");
         MultipartFile file = null;
         BufferedOutputStream stream = null;
+        //https://www.cnblogs.com/shamo89/p/7640801.html
+        // 文件上传后的路径
+        File outFile = new File("");
+        String outFilePath = outFile.getAbsolutePath();
+        outFilePath = outFilePath.replace("\\", "//");
         for (int i = 0; i < files.size(); ++i) {
             file = files.get(i);
             if (!file.isEmpty()) {
@@ -125,14 +131,13 @@ public class FileController {
 
                 } catch (Exception e) {
                     stream = null;
-                    return "You failed to upload " + i + " => "
-                            + e.getMessage();
+                    e.getMessage();
+                    return CommonResult.failed("上传失败");
                 }
             } else {
-                return "You failed to upload " + i
-                        + " because the file was empty.";
+                return CommonResult.failed("上传失败");
             }
         }
-        return "upload successful";
+        return CommonResult.success("上传成功");
     }
 }
