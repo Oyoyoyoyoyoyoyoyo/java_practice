@@ -3,21 +3,18 @@ package com.oyogis.service.impl;
 
 import com.oyogis.entity.User;
 import com.oyogis.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
+/*
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl_bak implements UserService {
 
     private JdbcTemplate jdbcTemplate;
 
-    UserServiceImpl(JdbcTemplate jdbcTemplate) {
+    UserServiceImpl_bak(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -52,4 +49,4 @@ public class UserServiceImpl implements UserService {
         return jdbcTemplate.update("delete from USER");
     }
 
-}
+}*/

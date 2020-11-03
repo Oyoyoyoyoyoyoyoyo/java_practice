@@ -6,28 +6,24 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 /**
  * Author:zhanggang
  * Date:2020/11/2
  * Decription:<用户实体类>
+ * swagger实现API文档
+ * JSR-303实现请求参数校验
  */
 @ApiModel("用户实体")
 @Data
 @NoArgsConstructor
-@Entity
-public class User {
-    @Id
-    @GeneratedValue
-    @NotNull
-    @ApiModelProperty("用户id")
-    private Long id;
-    @NotNull
+public class User_bak_3_3 {
+/*    @NotNull
     @Size(min = 2, max = 5)
     @ApiModelProperty("用户姓名")
     private String name;
@@ -36,10 +32,5 @@ public class User {
     @Max(100)
     @Min(10)
     @ApiModelProperty("用户年龄")
-    private Integer age;
-
-    public User(String name, Integer age) {
-        this.name = name;
-        this.age = age;
-    }
+    private Integer age;*/
 }

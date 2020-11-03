@@ -1,3 +1,4 @@
+/*
 package com.oyogis.common.utils;
 
 import io.jsonwebtoken.Claims;
@@ -13,6 +14,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+*/
 /**
  * JwtToken生成的工具类
  * JWT token的格式：header.payload.signature
@@ -23,7 +25,8 @@ import java.util.Map;
  * signature的生成算法：
  * HMACSHA512(base64UrlEncode(header) + "." +base64UrlEncode(payload),secret)
  * Created by macro on 2018/4/26.
- */
+ *//*
+
 @Component
 public class JwtTokenUtil {
     private static final Logger LOGGER = LoggerFactory.getLogger(JwtTokenUtil.class);
@@ -34,9 +37,11 @@ public class JwtTokenUtil {
     @Value("${jwt.expiration}")
     private Long expiration;
 
-    /**
+    */
+/**
      * 根据负责生成JWT的token
-     */
+     *//*
+
     private String generateToken(Map<String, Object> claims) {
         return Jwts.builder()
                 .setClaims(claims)
@@ -45,9 +50,11 @@ public class JwtTokenUtil {
                 .compact();
     }
 
-    /**
+    */
+/**
      * 从token中获取JWT中的负载
-     */
+     *//*
+
     private Claims getClaimsFromToken(String token) {
         Claims claims = null;
         try {
@@ -61,16 +68,20 @@ public class JwtTokenUtil {
         return claims;
     }
 
-    /**
+    */
+/**
      * 生成token的过期时间
-     */
+     *//*
+
     private Date generateExpirationDate() {
         return new Date(System.currentTimeMillis() + expiration * 1000);
     }
 
-    /**
+    */
+/**
      * 从token中获取登录用户名
-     */
+     *//*
+
     public String getUserNameFromToken(String token) {
         String username;
         try {
@@ -82,36 +93,44 @@ public class JwtTokenUtil {
         return username;
     }
 
-    /**
+    */
+/**
      * 验证token是否还有效
      *
      * @param token       客户端传入的token
      * @param userDetails 从数据库中查询出来的用户信息
-     */
+     *//*
+
     public boolean validateToken(String token, UserDetails userDetails) {
         String username = getUserNameFromToken(token);
         return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
 
-    /**
+    */
+/**
      * 判断token是否已经失效
-     */
+     *//*
+
     private boolean isTokenExpired(String token) {
         Date expiredDate = getExpiredDateFromToken(token);
         return expiredDate.before(new Date());
     }
 
-    /**
+    */
+/**
      * 从token中获取过期时间
-     */
+     *//*
+
     private Date getExpiredDateFromToken(String token) {
         Claims claims = getClaimsFromToken(token);
         return claims.getExpiration();
     }
 
-    /**
+    */
+/**
      * 根据用户信息生成token
-     */
+     *//*
+
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
@@ -119,19 +138,24 @@ public class JwtTokenUtil {
         return generateToken(claims);
     }
 
-    /**
+    */
+/**
      * 判断token是否可以被刷新
-     */
+     *//*
+
     public boolean canRefresh(String token) {
         return !isTokenExpired(token);
     }
 
-    /**
+    */
+/**
      * 刷新token
-     */
+     *//*
+
     public String refreshToken(String token) {
         Claims claims = getClaimsFromToken(token);
         claims.put(CLAIM_KEY_CREATED, new Date());
         return generateToken(claims);
     }
 }
+*/
