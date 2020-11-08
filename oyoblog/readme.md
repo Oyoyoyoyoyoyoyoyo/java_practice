@@ -13,6 +13,8 @@
 #### 关键技术记录
 * 使用了代码生成工具，快速生成controller,entity,mapper,service等包及类
 * 进行了统一结果封装，生成标准REST接口结果风格（CommonResult）
+* redis.clients.jedis.exceptions.JedisConnectionException 需要启动redis服务才行
+* 跨域处理方法类
 
 
 [来源(MarkerHub)](https://www.bilibili.com/video/BV1PQ4y1P7hZ?p=4)

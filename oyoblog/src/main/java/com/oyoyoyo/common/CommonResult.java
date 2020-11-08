@@ -55,8 +55,10 @@ public class CommonResult<T> {
 
     /**
      * 失败返回结果
+     * @param i
+     * @param message
      */
-    public static <T> CommonResult<T> failed() {
+    public static <T> CommonResult<T> failed(int i, String message) {
         return failed(ResultCode.FAILED);
     }
 
