@@ -10,6 +10,9 @@
     "axios": "^0.21.0",
     "core-js": "^3.6.5",
     "element-ui": "^2.14.1",
+    "github-markdown-css": "^4.0.0",
+    "markdown-it": "^12.0.2",
+    "mavon-editor": "^2.9.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"
@@ -21,6 +24,7 @@
     "@vue/cli-service": "~4.5.0",
     "svgo": "^1.1.0",
     "svgo-loader": "^2.1.0",
+    "vue-cli-plugin-component-lib": "^0.1.6",
     "vue-cli-plugin-svg-sprite": "^1.0.0",
     "vue-template-compiler": "^2.6.11"
   },

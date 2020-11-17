@@ -25,7 +25,10 @@ const routes = [{
   {
     path: '/blog/add',
     name: 'BlogEdit',
-    component: BlogEdit
+    component: BlogEdit,
+    meta:{
+      requireAuth:true//表示需要登录后才有权限访问
+    }
   },
   {
     path: '/blog/:blogId',
@@ -35,7 +38,10 @@ const routes = [{
   {
     path: '/blog/:blogId/edit',
     name: 'BlogEdit',
-    component: BlogEdit
+    component: BlogEdit,
+    meta:{
+      requireAuth:true//表示需要登录后才有权限访问
+    }
   },
 
 
