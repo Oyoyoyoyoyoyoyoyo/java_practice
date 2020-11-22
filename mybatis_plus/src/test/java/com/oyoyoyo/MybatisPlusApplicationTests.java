@@ -109,11 +109,12 @@ class MybatisPlusApplicationTests {
     }
 
     /**
-     * 测试删除
+     * 测试删除,包含逻辑删除逻辑
+     * 逻辑删除：用的update操作，不是删除，查询时会自动过滤逻辑删除的内容
      */
     @Test
     public void testDelete() {
-        final int deleteById = userMapper.deleteById(1);
+        final int deleteById = userMapper.deleteById(2);
         System.out.println("deleteById = " + deleteById);
     }
 }

@@ -24,6 +24,12 @@ public class User {
     private Integer age;
     private String email;
     /**
+     * 逻辑删除
+     */
+    @TableLogic
+    private Integer deleted;
+
+    /**
      * 乐观锁
      */
     @Version
