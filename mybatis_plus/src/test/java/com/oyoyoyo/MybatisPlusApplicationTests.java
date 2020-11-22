@@ -30,13 +30,28 @@ class MybatisPlusApplicationTests {
     @Test
     public void testInsert() {
         User user = new User();
-        user.setName("你大爷呀");
+        user.setName("你大爷呀2222");
         user.setAge(17);
         user.setEmail("645590975@qq.com");
         //插入会自动生成id,并自动回填
         final int userResult = userMapper.insert(user);
         System.out.println("userResult = " + userResult);
         System.out.println("user = " + user);
+    }
+
+    /**
+     * 测试更新
+     */
+    @Test
+    public void testUpdate() {
+        User user = new User();
+        user.setName("你大爷呀2222");
+        user.setId(9);
+        user.setAge(19);
+        user.setEmail("645590975@qq.com");
+
+        final int updateResult = userMapper.updateById(user);
+        System.out.println("updateResult = " + updateResult);
     }
 
 }
