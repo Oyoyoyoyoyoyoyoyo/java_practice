@@ -54,4 +54,18 @@ class MybatisPlusApplicationTests {
         System.out.println("updateResult = " + updateResult);
     }
 
+    /**
+     * 测试乐观锁成功
+     */
+    @Test
+    public void TestOptimisticLocker() {
+        // 查询用户
+        User user = userMapper.selectById(1L);
+        //    修改用户
+        user.setName("狂胜说");
+        user.setEmail("123456@qq.com");
+        //    更新
+        userMapper.updateById(user);
+    }
+
 }
