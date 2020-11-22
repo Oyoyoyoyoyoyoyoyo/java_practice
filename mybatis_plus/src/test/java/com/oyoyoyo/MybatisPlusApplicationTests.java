@@ -1,11 +1,15 @@
 package com.oyoyoyo;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.oyoyoyo.mapper.UserMapper;
 import com.oyoyoyo.pojo.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 @SpringBootTest
@@ -68,4 +72,48 @@ class MybatisPlusApplicationTests {
         userMapper.updateById(user);
     }
 
+    /**
+     * 测试批量查询
+     */
+    @Test
+    public void testSelectById() {
+        // final User selectByIdResult = userMapper.selectById(1);
+        // System.out.println("selectByIdResult = " + selectByIdResult);
+        final List<User> userList = userMapper.selectBatchIds(Arrays.asList(1, 2, 3));
+        System.out.println("userList = " + userList);
+    }
+
+    /**
+     * 测试条件查询
+     */
+    @Test
+    public void testSelectByWhere() {
+        final HashMap<String, Object> map = new HashMap<>();
+        //    自定义查询
+        map.put("name", "Tom");
+        final List<User> users = userMapper.selectByMap(map);
+        System.out.println("users = " + users);
+    }
+
+    /**
+     * 测试分页
+     */
+    @Test
+    public void testPage() {
+        //当前页，页面大小
+        final Page<User> page = new Page<>(2, 5);
+        final Page<User> users = userMapper.selectPage(page, null);
+        final long pageTotal = page.getTotal();
+        System.out.println("pageTotal = " + pageTotal);
+        System.out.println("users = " + users);
+    }
+
+    /**
+     * 测试删除
+     */
+    @Test
+    public void testDelete() {
+        final int deleteById = userMapper.deleteById(1);
+        System.out.println("deleteById = " + deleteById);
+    }
 }
