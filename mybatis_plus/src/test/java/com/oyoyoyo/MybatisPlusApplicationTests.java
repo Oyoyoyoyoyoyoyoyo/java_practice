@@ -11,7 +11,7 @@ import java.util.List;
 @SpringBootTest
 class MybatisPlusApplicationTests {
     /**
-     *继承了BaseMapper所有的方法来自BaseMapper
+     * 继承了BaseMapper所有的方法来自BaseMapper
      */
     @Autowired
     private UserMapper userMapper;
@@ -22,6 +22,21 @@ class MybatisPlusApplicationTests {
         //查询所有用户,wrapper参数是条件构造器，类似sql中的where
         final List<User> users = userMapper.selectList(null);
         users.forEach(System.out::println);
+    }
+
+    /**
+     * 测试插入
+     */
+    @Test
+    public void testInsert() {
+        User user = new User();
+        user.setName("你大爷呀");
+        user.setAge(17);
+        user.setEmail("645590975@qq.com");
+        //插入会自动生成id,并自动回填
+        final int userResult = userMapper.insert(user);
+        System.out.println("userResult = " + userResult);
+        System.out.println("user = " + user);
     }
 
 }
