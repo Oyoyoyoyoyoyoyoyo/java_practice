@@ -25,7 +25,7 @@ import javax.servlet.Filter;
 
 /**
  * Date:2020/11/5
- * Decription:<描述>
+ * Decription:<Shiro配置类,登录权限验证等>
  *
  * @Author:oyoyoyoyoyoyo
  */

@@ -13,14 +13,20 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 /**
  * Date:2020/11/8
- * Decription:<描述>
+ * Decription:<全局异常处理>
  *
  * @Author:oyoyoyoyoyoyo
  */
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-
+    /**
+     * 捕获shrio异常
+     *
+     * @param e
+     * @return
+     * @ExceptionHandler 可以用来统一处理方法抛出的异常
+     */
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(value = ShiroException.class)
     public CommonResult handler(ShiroException e) {
@@ -28,6 +34,12 @@ public class GlobalExceptionHandler {
         return CommonResult.failed(401, e.getMessage());
     }
 
+    /**
+     * 捕获全局运行时异常
+     *
+     * @param e
+     * @return
+     */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = RuntimeException.class)
     public CommonResult handler(RuntimeException e) {
