@@ -20,7 +20,7 @@ import javax.validation.Valid;
  * @since 2020-11-04
  */
 @RestController
-@RequestMapping("/user")
+
 public class UserController {
     @Autowired
     UserService userService;
