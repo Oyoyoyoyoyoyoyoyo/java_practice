@@ -16,7 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class MyMvcDonfig implements WebMvcConfigurer {
 
     /**
-     * 首页视图控制
+     * 首页视图控制/路由转换
      *
      * @param registry
      */
@@ -24,6 +24,7 @@ public class MyMvcDonfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
         registry.addViewController("/index.html").setViewName("index");
+        registry.addViewController("/main.html").setViewName("dashboard");
 
     }
     @Bean
