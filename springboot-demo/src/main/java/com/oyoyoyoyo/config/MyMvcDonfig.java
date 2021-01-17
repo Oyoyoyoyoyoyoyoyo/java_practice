@@ -3,6 +3,7 @@ package com.oyoyoyoyo.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -30,5 +31,13 @@ public class MyMvcDonfig implements WebMvcConfigurer {
     @Bean
     public LocaleResolver localeResolver(){
         return new MyLocaleResolver();
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        //拦截非正常路径
+        registry.addInterceptor(new LoginHandlerIntercepter())
+                .addPathPatterns("/**")
+                .excludePathPatterns("/index.html", "/", "/user/login", "/css/**", "/js/**", "/img/**");
     }
 }

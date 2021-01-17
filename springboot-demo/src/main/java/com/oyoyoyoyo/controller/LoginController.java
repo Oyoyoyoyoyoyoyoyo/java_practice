@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * Date:2021/1/17
  * Decription:<登陆控制类>
@@ -16,8 +18,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class LoginController {
     @RequestMapping("/user/login")
-    public String login(@RequestParam("username") String username, @RequestParam("password") String password, Model model) {
+    public String login(
+            @RequestParam("username") String username,
+            @RequestParam("password") String password,
+            Model model,
+            HttpSession session
+    ) {
         if (!StringUtils.isEmpty(username) && "123456".equals(password)) {
+            //存入session
+            session.setAttribute("loginUser", username);
             // return "dashboard";
             //重定向到main.html 实际为dashboard.html
             return "redirect:/main.html";
