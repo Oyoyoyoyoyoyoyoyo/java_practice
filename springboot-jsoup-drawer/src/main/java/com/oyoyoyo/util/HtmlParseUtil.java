@@ -22,19 +22,6 @@ import java.util.List;
  */
 public class HtmlParseUtil {
     public static void main(String[] args) throws Exception {
-        final Connection.Response execute = Jsoup.connect("https://www.frontendjs.com/api/s_rmd")
-                .header("Accept", "*/*")
-                .header("Accept-Encoding", "gzip, deflate")
-                .header("Accept-Language", "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3")
-                .header("Content-Type", "application/json;charset=UTF-8")
-                .header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:48.0) Gecko/20100101 Firefox/48.0")
-                .timeout(10000).ignoreContentType(true).execute();//.get();
-        String body = execute.body();
-        final JSONObject bodyJson = new JSONObject(body);
-        final Object success = bodyJson.get("success");
-        System.out.println("success = " + success.toString());
-        System.out.println("bodyJson = " + bodyJson);
-        // parseJD("java");
     }
 
     /**
@@ -70,7 +57,7 @@ public class HtmlParseUtil {
     /**
      * 动态获取接口数据
      *
-     * @param url https://www.frontendjs.com/api/s_rmd
+     * @param url https://www.frontendjs.com/api/s_rmd，"https://geo.datav.aliyun.com/areas_v2/bound/510000.json"
      * @return
      */
     public static JSONObject parseAjax(String url) {
@@ -83,11 +70,7 @@ public class HtmlParseUtil {
                     .header("Content-Type", "application/json;charset=UTF-8")
                     .header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:48.0) Gecko/20100101 Firefox/48.0")
                     .timeout(10000).ignoreContentType(true).execute();
-            //.get();
-            String body = execute.body();
-            bodyJson = new JSONObject(body);
-            final Object success = bodyJson.get("success");
-            System.out.println("success = " + success.toString());
+            bodyJson = new JSONObject(execute.parse().text());
             System.out.println("bodyJson = " + bodyJson);
         } catch (Exception e) {
             e.printStackTrace();
